@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Lista de {{ modelo|title }}</h1>
+
+<table border="1">
+
+{% if datos %}
+
+<tr>
+
+{% for key in datos.0.keys %}
+<th>{{ key }}</th>
+{% endfor %}
+
+</tr>
+
+{% for item in datos %}
+
+<tr>
+
+{% for value in item.values %}
+<td>{{ value }}</td>
+{% endfor %}
+
+</tr>
+
+{% endfor %}
+
+{% endif %}
+
+</table>
+
+</body>
+</html>
