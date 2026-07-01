@@ -14,14 +14,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.http import HttpResponse
+from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
 from rest_framework.routers import DefaultRouter
-from tienda.views import CamisaViewSet
-from django.contrib import admin  
-from tienda.views import *
+from tienda.views import (
+    CamisaViewSet,
+    ClienteViewSet,
+    DetalleFacturaViewSet,
+    EmpleadoViewSet,
+    FacturaViewSet,
+    PersonalizacionViewSet,
+    ProveedorViewSet,
+    VentaViewSet,
+    listar_clientes
+)
 
-
+# Router DRF
 router = DefaultRouter()
 router.register(r'camisas', CamisaViewSet)
 router.register(r'clientes', ClienteViewSet)
@@ -30,14 +40,20 @@ router.register(r'empleados', EmpleadoViewSet)
 router.register(r'facturas', FacturaViewSet)
 router.register(r'personalizaciones', PersonalizacionViewSet)
 router.register(r'proveedores', ProveedorViewSet)
-router.register(r'ventas', VentaViewSet) 
+router.register(r'ventas', VentaViewSet)
 
 def inicio(request):
     return HttpResponse("Bienvenido a la API de Camisas")
 
 urlpatterns = [
     path('', inicio),
+
+    # DRF routes
     path('api/', include(router.urls)),
+
+    # Django admin
     path('admin/', admin.site.urls),
-    
+
+    # endpoint manual (opcional)
+    path('api/clientes-simple/', listar_clientes),
 ]

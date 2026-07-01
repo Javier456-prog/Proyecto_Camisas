@@ -1,6 +1,14 @@
 from rest_framework import viewsets
 from .models import Camisa, Cliente, DetalleFactura, Empleado, Factura, Personalizacion, Proveedor, Venta
 from .serializers import *
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .models import Cliente
+
+@api_view(['GET'])
+def listar_clientes(request):
+    clientes = Cliente.objects.all().values()
+    return Response(clientes)
 
 class CamisaViewSet(viewsets.ModelViewSet):
     queryset = Camisa.objects.all()

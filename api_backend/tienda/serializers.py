@@ -40,3 +40,4 @@ class VentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venta
         fields = '__all__'
+        read_only_fields = ['id_venta']
